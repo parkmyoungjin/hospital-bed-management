@@ -15,13 +15,13 @@ const Navbar = () => {
       <li>
         <Link to="/beds">병상 현황</Link>
       </li>
-      {user && user.role === 'admin' && (
+      {isAuthenticated && user && user.role === 'admin' && (
         <li>
           <Link to="/admin">관리자 대시보드</Link>
         </li>
       )}
       <li>
-        안녕하세요, {user && user.name}님!
+        <span>안녕하세요, {user && user.name}님!</span>
       </li>
       <li>
         <a onClick={onLogout} href="#!">

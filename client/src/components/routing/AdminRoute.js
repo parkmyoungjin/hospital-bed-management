@@ -8,11 +8,10 @@ const AdminRoute = ({ children }) => {
   const { isAuthenticated, loading, user, loadUser } = authContext;
 
   useEffect(() => {
-    // 페이지 로드 시 사용자 정보 다시 로드 시도
-    if (!user && localStorage.token) {
+    if (!user) {
       loadUser();
     }
-  }, []);
+  }, [loadUser, user]);
 
   // 로딩 중이고 5초 이내일 경우에만 스피너 표시
   if (loading) {

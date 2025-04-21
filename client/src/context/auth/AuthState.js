@@ -15,7 +15,7 @@ import {
 const AuthState = props => {
   const initialState = {
     token: localStorage.getItem('token'),
-    isAuthenticated: localStorage.getItem('token') ? true : null,
+    isAuthenticated: null,
     loading: true,
     user: null,
     error: null
@@ -25,7 +25,6 @@ const AuthState = props => {
 
   // 사용자 로드
   const loadUser = async () => {
-    // 로컬 스토리지에 토큰이 있으면 헤더에 설정
     if (localStorage.token) {
       setAuthToken(localStorage.token);
     }
@@ -62,8 +61,7 @@ const AuthState = props => {
         payload: res.data
       });
 
-      // 로그인 성공 후 사용자 정보 로드
-      loadUser();
+      await loadUser();  // 사용자 정보 로드를 기다림
     } catch (err) {
       const errorMessage = err.response && err.response.data ? err.response.data.msg : '서버 연결에 실패했습니다.';
       console.error('로그인 실패:', err);
@@ -75,7 +73,10 @@ const AuthState = props => {
   };
 
   // 로그아웃
-  const logout = () => dispatch({ type: LOGOUT });
+  const logout = () => {
+    setAuthToken(null);  // 토큰 제거
+    dispatch({ type: LOGOUT });
+  };
 
   // 에러 초기화
   const clearErrors = () => dispatch({ type: CLEAR_ERRORS });

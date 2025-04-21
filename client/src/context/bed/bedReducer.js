@@ -2,15 +2,16 @@ import {
   GET_BEDS,
   ADD_BED,
   DELETE_BED,
-  UPDATE_BED,
-  BED_ERROR,
   SET_CURRENT,
   CLEAR_CURRENT,
+  UPDATE_BED,
   FILTER_BEDS,
-  CLEAR_FILTER
+  CLEAR_FILTER,
+  BED_ERROR,
+  CLEAR_BEDS
 } from '../types';
 
-export default (state, action) => {
+const bedReducer = (state, action) => {
   switch (action.type) {
     case GET_BEDS:
       return {
@@ -38,6 +39,14 @@ export default (state, action) => {
         beds: state.beds.filter(bed => bed._id !== action.payload),
         loading: false
       };
+    case CLEAR_BEDS:
+      return {
+        ...state,
+        beds: null,
+        filtered: null,
+        error: null,
+        current: null
+      };
     case SET_CURRENT:
       return {
         ...state,
@@ -53,7 +62,12 @@ export default (state, action) => {
         ...state,
         filtered: state.beds.filter(bed => {
           const regex = new RegExp(`${action.payload}`, 'gi');
-          return bed.department.match(regex) || bed.wardName.match(regex) || bed.roomNumber.match(regex);
+          return (
+            bed.department.match(regex) ||
+            bed.wardName.match(regex) ||
+            bed.roomNumber.match(regex) ||
+            bed.bedType.match(regex)
+          );
         })
       };
     case CLEAR_FILTER:
@@ -69,4 +83,6 @@ export default (state, action) => {
     default:
       return state;
   }
-}; 
+};
+
+export default bedReducer; 

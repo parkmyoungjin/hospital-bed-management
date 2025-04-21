@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import BedContext from '../../context/bed/bedContext';
 import AuthContext from '../../context/auth/authContext';
-import BedItem from '../bed/BedItem';
+// import BedItem from '../beds/BedItem';
 import AdminBedItem from './AdminBedItem';
 import Spinner from '../layout/Spinner';
 
