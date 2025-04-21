@@ -2,12 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const BedItem = ({ bed }) => {
-  const { department, wardName, roomNumber, bedCount, bedType, approvalDate, notes } = bed;
+  const { department, wardName, roomNumber, bedCount, bedType, approvalDate } = bed;
 
-  // 날짜 형식 변환
-  const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString('ko-KR', options);
+  const formatDate = (date) => {
+    try {
+      return new Date(date).toLocaleDateString('ko-KR', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      });
+    } catch (error) {
+      return '날짜 정보 없음';
+    }
   };
 
   return (
@@ -23,7 +29,14 @@ const BedItem = ({ bed }) => {
 };
 
 BedItem.propTypes = {
-  bed: PropTypes.object.isRequired
+  bed: PropTypes.shape({
+    department: PropTypes.string.isRequired,
+    wardName: PropTypes.string.isRequired,
+    roomNumber: PropTypes.string.isRequired,
+    bedCount: PropTypes.number.isRequired,
+    bedType: PropTypes.string.isRequired,
+    approvalDate: PropTypes.string.isRequired
+  }).isRequired
 };
 
 export default BedItem;
