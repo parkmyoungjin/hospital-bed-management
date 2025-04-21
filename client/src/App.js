@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Home from './components/pages/Home';
@@ -7,7 +7,6 @@ import AdminDashboard from './components/admin/AdminDashboard';
 import BedList from './components/bed/BedList';
 import AddBedForm from './components/admin/AddBedForm';
 import EditBedForm from './components/admin/EditBedForm';
-import PrivateRoute from './components/routing/PrivateRoute';
 import AdminRoute from './components/routing/AdminRoute';
 import Alert from './components/layout/Alert';
 
